@@ -4,7 +4,7 @@ import gradio as gr
 
 # pkl modelini yükle
 try:
-    pipe = joblib.load('car_price_model.pkl')
+    pipe = joblib.load('pipe.pkl')
 except FileNotFoundError:
     print("HATA: 'car_price_model.pkl' dosyası bulunamadı. Lütfen dosyanın doğru yolda olduğundan emin olun.")
     pipe = None # Model yüklenemezse None olarak ayarla
