@@ -42,13 +42,68 @@ Dağınık metinlerden (fatura, tıbbi kayıt, sipariş…) **geçerli JSON üre
 
 ---
 
-### 2. **Car Prediction (Araba Fiyat Tahmini)** `car-predict/`
+### 2. **MT5 Turkish Summarization — Türkçe Metin Özetleme** `mt5-turkish-summarization/`
+
+Türkçe yazılı metinleri özet metinlere dönüştüren **mT5 (multilingual T5)** modelini fine-tuning ile optimize etme projesi.
+
+**Temel Sonuç:**
+- ✅ **Model:** mT5-small pretrained modeli Türkçe özet görevine adapte
+- ✅ **Görev:** Uzun metinleri (örn. haber, makale, dokuman) kısa ve anlamlı özetlere dönüştürme
+- ✅ **Veri:** Türkçe özet çiftleri ile fine-tune edilmiş
+- ✅ **Donanım:** Ücretsiz Kaggle/Colab **T4 GPU** ile eğitime hazır
+
+**Teknoloji:**
+- Model: `ozcangundes/mt5-small-turkish-summarization` (Hugging Face hub'da)
+- Mimari: **mT5** (Google'ın multilingual Transfer Transformer 5) — 101 dilde destek
+- Yöntem: **Sequence-to-Sequence** (metin-metin dönüştürme)
+- Veri: Türkçe metin-özet çiftleri
+- Donanım: Ücretsiz T4 GPU
+
+**Kullanım Alanları:**
+- 📰 Haber özetleme (gazeteler, haber siteleri)
+- 📄 Teknik dokümantasyon özeti
+- 🔍 Arama motoru snippet'leri
+- 📋 Toplantı notlarından özet çıkarma
+- 📚 Akademik makalelerin özeti
+
+**İçerik:**
+| Dosya | Açıklama |
+|---|---|
+| `mt5_turkish_summarization.ipynb` | Ana notebook — modelin yüklenmesi, fine-tuning, inference |
+| `google-colab-link` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/#fileId=https%3A//huggingface.co/ozcangundes/mt5-small-turkish-summarization.ipynb) |
+
+**Hızlı Örnek:**
+```python
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+tokenizer = AutoTokenizer.from_pretrained("ozcangundes/mt5-small-turkish-summarization")
+model = AutoModelForSeq2SeqLM.from_pretrained("ozcangundes/mt5-small-turkish-summarization")
+
+metin = "Türkiye ekonomisi son yıllarda önemli değişimler geçirmektedir..."
+inputs = tokenizer.encode(metin, return_tensors="pt", max_length=512, truncation=True)
+outputs = model.generate(inputs, max_length=150, num_beams=4, early_stopping=True)
+ozet = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+print(f"Özet: {ozet}")
+```
+
+**Hızlı Başlangıç (Colab):**
+1. [Google Colab'da Aç](https://colab.research.google.com/#fileId=https%3A//huggingface.co/ozcangundes/mt5-small-turkish-summarization.ipynb)
+2. **Runtime → Change runtime type → T4 GPU**
+3. Hücreleri çalıştır → Model yüklenir + özetleme örneği yapılır
+4. Kendi metinlerinizi test edin
+
+👉 **Model Hub:** [ozcangundes/mt5-small-turkish-summarization](https://huggingface.co/ozcangundes/mt5-small-turkish-summarization)
+
+---
+
+### 3. **Car Prediction (Araba Fiyat Tahmini)** `car-predict/`
 
 *Detaylı bilgi için dizin içindeki README'ye bakınız.*
 
 ---
 
-### 3. **Fine-tuning Laboratuvarı** `Finetune/`
+### 4. **Fine-tuning Laboratuvarı** `Finetune/`
 
 *Detaylı bilgi için dizin içindeki README'ye bakınız.*
 
@@ -75,9 +130,9 @@ Bu uygulama başta **Gemma 4 E4B** ile denenmiştir. Sonuç:
 |---|---|
 | **Dil** | Python 3.8+ |
 | **Notebook** | Jupyter (`.ipynb`) — Kaggle/Colab çalıştırma |
-| **Model** | Hugging Face `unsloth/gemma-3-4b-it` |
-| **Fine-tuning** | Unsloth (QLoRA) |
-| **Kütüphaneler** | `torch`, `transformers`, `unsloth`, `peft` |
+| **Model** | Hugging Face `unsloth/gemma-3-4b-it`, `ozcangundes/mt5-small-turkish-summarization` |
+| **Fine-tuning** | Unsloth (QLoRA), Hugging Face Transformers |
+| **Kütüphaneler** | `torch`, `transformers`, `unsloth`, `peft`, `datasets` |
 | **Veriler** | Hugging Face Datasets |
 | **GPU** | Kaggle T4 (ücretsiz) veya Colab T4 (ücretsiz) |
 
@@ -139,6 +194,8 @@ Geçerli JSON: ✅ Evet
 ## 🔗 Kaynaklar
 
 - [Gemma Modelleri (Google)](https://huggingface.co/collections/google/gemma-release-65d746f89d895876a249ce11)
+- [mT5 Model Dokümantasyonu](https://huggingface.co/docs/transformers/model_doc/mt5)
+- [MT5 Turkish Summarization Model](https://huggingface.co/ozcangundes/mt5-small-turkish-summarization)
 - [Unsloth Kütüphanesi](https://github.com/unslothai/unsloth)
 - [LoRA Makalesi](https://arxiv.org/abs/2106.09685)
 - [QLoRA Makalesi](https://arxiv.org/abs/2305.14314)
@@ -150,6 +207,7 @@ Geçerli JSON: ✅ Evet
 
 Eğitim materyali (döküman + notebook). Model ve veri seti kendi lisanslarına tabiidir:
 - **Gemma Modelleri:** Google tarafından (Community License)
+- **mT5 Modeli:** Google tarafından (Apache 2.0)
 - **Veri Seti:** `paraloq/json_data_extraction` (Apache 2.0)
 
 ---
