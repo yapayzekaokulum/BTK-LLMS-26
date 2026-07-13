@@ -109,6 +109,111 @@ print(f"Özet: {ozet}")
 
 ---
 
+## 🤖 HF Projeleri — Hugging Face Hub Modelleri
+
+Hugging Face Hub'da paylaşılan, Google Colab üzerinde çalıştırılabilir pratik projeler.
+
+### 📌 1. **Pipeline ile Model Kullanımı**
+
+Transformers kütüphanesinin **Pipeline API** ile modelleri nasıl kolayca kullanacağını öğrenen eğitim projesi.
+
+**Açıklama:**
+- 🎯 **Amaç:** Hugging Face Pipeline abstraksiyonunu anlamak ve pratik uygulamalar geliştirmek
+- 🔧 **Kapsam:** Model yükleme, tokenizasyon, inference, çıktı işleme
+- 💡 **Seviye:** Başlangıç (GPU bilgisi gerekmez)
+- 📊 **Görev Türleri:** Text classification, sentiment analysis, named entity recognition, question answering, vb.
+
+**Kullanılan Araçlar:**
+```python
+from transformers import pipeline
+
+# Text classification
+classifier = pipeline("text-classification", model="bert-base-multilingual-uncased")
+result = classifier("Bu ürün çok güzel!")
+
+# Named Entity Recognition
+ner = pipeline("ner", model="bert-base-multilingual-cased")
+entities = ner("Ahmet İstanbul'da yaşıyor.")
+
+# Sentiment Analysis
+sentiment = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
+```
+
+**İçerik:**
+- Transformers kütüphanesine giriş
+- Pipeline API ile farklı görevler (classification, NER, QA, translation)
+- Model ve tokenizer seçimi
+- Batch işleme ve performans optimizasyonu
+- Gerçek veri üzerinde örnekler
+
+**Başlangıç:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1zAsD0-0JQ6IQENudEog-bk8aBAGwAzHt?usp=sharing)
+
+**Veya aşağıdaki adımları takip et:**
+1. https://colab.research.google.com → yeni notebook aç
+2. Sol panel → "File" → "Open notebook"
+3. Share link'i yapıştır: `https://colab.research.google.com/drive/1zAsD0-0JQ6IQENudEog-bk8aBAGwAzHt?usp=sharing`
+4. **Runtime → Run all** → kodlar çalışır
+
+**Öğrenecekleriniz:**
+- ✅ Pipeline API kullanımı
+- ✅ Çeşitli NLP görevleri (6+ görev)
+- ✅ Modellerin karşılaştırması
+- ✅ Türkçe ve İngilizce veri ile çalışma
+- ✅ Hata işleme ve debugging
+
+👉 **Not:** GPU seçilirse daha hızlı çalışır ancak CPU'da da yavaş çalışır.
+
+---
+
+### 📌 2. **Hugging Face Model Kullanım Sunusu**
+
+Hugging Face Hub'daki modellerin yüklenmesi, fine-tuning'i ve inference'ı hakkında kapsamlı eğitim sunusu.
+
+**Sunuşun İçeriği:**
+- 📖 Hugging Face Hub'a giriş ve navigasyon
+- 🔍 Model ve dataset araştırması
+- 🚀 Model yükleme ve kullanma (AutoModel, AutoTokenizer)
+- 🎯 Transformers kütüphanesinin mimarisi
+- 💾 Lokal cihazda model indirme ve caching
+- 🔧 Tokenizasyon detayları
+- 🎓 Transfer learning ve fine-tuning
+- 📊 Model karşılaştırması ve seçimi
+- ⚡ Performans optimizasyonu (quantization, distillation)
+- 🌍 Çok dilli model kullanımı
+- 🔐 Güvenlik ve model validasyonu
+
+**Sunum Format:**
+- PowerPoint + PDF
+- Konuşmacı notları ile
+- Interaktif örnekler
+- Pratik alıştırmalar
+
+**Sunuş Sayfaları:**
+| Sayfa | Başlık |
+|---|---|
+| 1-5 | Giriş & Hugging Face Ekosistemi |
+| 6-10 | Hub Platformu & Model Bulma |
+| 11-15 | AutoModel & AutoTokenizer |
+| 16-20 | Tokenizasyon & Padding |
+| 21-25 | Transfer Learning & Fine-tuning |
+| 26-30 | Pratik Örnekler |
+| 31+ | İleri Konular & Q&A |
+
+**Hedef Kitle:**
+- 🎓 ML/NLP'ye başlayanlar
+- 👨‍💼 Production ortamında çalışan mühendisler
+- 📚 Akademik araştırmacılar
+- 🚀 Startup'larda çalışan geliştiriciler
+
+👉 **Dosyalar:**
+- `huggingface-model-usage-sunusu.pptx` — PowerPoint sunusu
+- `huggingface-model-usage-sunusu.pdf` — PDF version
+- `konusmaci-notlari.md` — Detaylı konuşmacı notları
+
+---
+
 ## 🎯 Neden Gemma 3 4B?
 
 Bu uygulama başta **Gemma 4 E4B** ile denenmiştir. Sonuç:
@@ -196,6 +301,8 @@ Geçerli JSON: ✅ Evet
 - [Gemma Modelleri (Google)](https://huggingface.co/collections/google/gemma-release-65d746f89d895876a249ce11)
 - [mT5 Model Dokümantasyonu](https://huggingface.co/docs/transformers/model_doc/mt5)
 - [MT5 Turkish Summarization Model](https://huggingface.co/ozcangundes/mt5-small-turkish-summarization)
+- [Hugging Face Transformers Pipeline](https://huggingface.co/docs/transformers/task_summary)
+- [Hugging Face Hub](https://huggingface.co)
 - [Unsloth Kütüphanesi](https://github.com/unslothai/unsloth)
 - [LoRA Makalesi](https://arxiv.org/abs/2106.09685)
 - [QLoRA Makalesi](https://arxiv.org/abs/2305.14314)
