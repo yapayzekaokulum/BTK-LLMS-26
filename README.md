@@ -101,7 +101,7 @@ Hugging Face Hub'daki modellerin yüklenmesi, fine-tuning'i ve inference'ı hakk
 
 **Kapsam:** HF Inference API, API Token yönetimi, HTTP istekleri, Model API endpointleri, Eşzamanlı sorgular, Hata yönetimi
 
-**İçerik:** HuggingFace API dokumentasyonu, Token oluşturma ve güvenli kullanım, Çeşitli görev türleri (classification, generation, Q&A, vb.), Türkçe & İngilizce örnekler, Rate limiting ve best practices
+**İçerik:** HuggingFace API dokumentasyonu, Token oluşturma ve güvenli kullanım, Çeşitli görev türleri (classification, generation, Q&A, vb.), Türkçe & İngilizce örnekler, Rate limit'i
 
 **Başlangıç:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xAzy3kpDNssph31jl8MpMoqPdZytOQ2g?usp=sharing)
 
@@ -119,6 +119,48 @@ def query(payload):
 result = query({"inputs": "Merhaba, benim adım..."})
 print(result)
 ```
+
+---
+
+### 📌 4. HF Lokal Model Tokenizer — HF-2 Uygulaması
+
+**Amaç:** Hugging Face Hub'daki modelleri yerel ortamda (Colab) yükleyerek Tokenizer ile text işleme ve token analizi yapmayı öğrenme.
+
+**Kapsam:** AutoTokenizer ile model yükleme, Tokenizasyon işlemi, Token ID'si, Attention mask, Special tokens, Vocabulary keşfi, Encoding/Decoding, Batch tokenizasyon
+
+**İçerik:** Tokenizer'ın temel yapısı, Türkçe & İngilizce örnek uygulamalar, Farklı model tokenizer'ları (BERT, GPT, Llama), Token sayısını optimize etme, Rate limit yönetimi
+
+**Başlangıç:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1b9xeZKUtSC1AktNbswUkoz6gR18J35Bk?usp=sharing)
+
+**Temel Kullanım:**
+```python
+from transformers import AutoTokenizer
+
+# Model tokenizer'ı yükle
+tokenizer = AutoTokenizer.from_pretrained("bert-base-multilingual-cased")
+
+# Metni tokenize et
+text = "Merhaba, bu bir örnek cümledir."
+encoded = tokenizer.encode(text, return_tensors="pt")
+print(f"Token sayısı: {encoded.shape[1]}")
+print(f"Token IDs: {encoded}")
+
+# Tokenları çöz
+tokens = tokenizer.convert_ids_to_tokens(encoded[0])
+print(f"Tokenlar: {tokens}")
+
+# Detaylı tokenizasyon
+output = tokenizer(text, padding=True, truncation=True, return_tensors="pt")
+print(f"Input IDs: {output['input_ids']}")
+print(f"Attention Mask: {output['attention_mask']}")
+```
+
+**Kullanım Senaryoları:**
+- Model hazırlığı ve token analizi
+- Vocabulary keşfi ve inceleme
+- Farklı tokenizer'lar arasında karşılaştırma
+- Text preprocessing ve cleaning
+- Model input hazırlanması
 
 ---
 
@@ -149,6 +191,7 @@ print(result)
 - [mT5 Dokümantasyonu](https://huggingface.co/docs/transformers/model_doc/mt5)
 - [Hugging Face Hub](https://huggingface.co)
 - [Hugging Face Inference API](https://huggingface.co/docs/api-inference/index)
+- [Hugging Face Tokenizers](https://huggingface.co/docs/transformers/main_classes/tokenizer)
 - [Unsloth Kütüphanesi](https://github.com/unslothai/unsloth)
 - [LoRA Makalesi](https://arxiv.org/abs/2106.09685)
 - [QLoRA Makalesi](https://arxiv.org/abs/2305.14314)
