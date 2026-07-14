@@ -95,6 +95,33 @@ Hugging Face Hub'daki modellerin yüklenmesi, fine-tuning'i ve inference'ı hakk
 
 ---
 
+### 📌 3. Hugging Face API Inference — HF TOKEN ile Model Sorgulama
+
+**Amaç:** Hugging Face Hub'daki modelleri doğrudan API üzerinden sorgulamayı ve Inference API'yi kullanarak çıkarımı öğrenme.
+
+**Kapsam:** HF Inference API, API Token yönetimi, HTTP istekleri, Model API endpointleri, Eşzamanlı sorgular, Hata yönetimi
+
+**İçerik:** HuggingFace API dokumentasyonu, Token oluşturma ve güvenli kullanım, Çeşitli görev türleri (classification, generation, Q&A, vb.), Türkçe & İngilizce örnekler, Rate limiting ve best practices
+
+**Başlangıç:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xAzy3kpDNssph31jl8MpMoqPdZytOQ2g?usp=sharing)
+
+**Temel Kullanım:**
+```python
+import requests
+
+API_URL = "https://api-inference.huggingface.co/models/MODEL_NAME"
+headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+
+def query(payload):
+    response = requests.post(API_URL, headers=headers, json=payload)
+    return response.json()
+
+result = query({"inputs": "Merhaba, benim adım..."})
+print(result)
+```
+
+---
+
 ## 📂 Tüm Projeler & Linkler
 
 **Google Drive'da HF projeleri ve ek materyalleri görüntüleyin:**
@@ -112,7 +139,7 @@ Hugging Face Hub'daki modellerin yüklenmesi, fine-tuning'i ve inference'ı hakk
 | **Model Hub** | Hugging Face |
 | **Çalıştırma** | Kaggle/Google Colab |
 | **GPU** | T4 (ücretsiz) |
-| **Kütüphaneler** | `torch`, `transformers`, `unsloth`, `peft`, `datasets` |
+| **Kütüphaneler** | `torch`, `transformers`, `unsloth`, `peft`, `datasets`, `requests` |
 
 ---
 
@@ -121,6 +148,7 @@ Hugging Face Hub'daki modellerin yüklenmesi, fine-tuning'i ve inference'ı hakk
 - [Gemma Modelleri](https://huggingface.co/collections/google/gemma-release-65d746f89d895876a249ce11)
 - [mT5 Dokümantasyonu](https://huggingface.co/docs/transformers/model_doc/mt5)
 - [Hugging Face Hub](https://huggingface.co)
+- [Hugging Face Inference API](https://huggingface.co/docs/api-inference/index)
 - [Unsloth Kütüphanesi](https://github.com/unslothai/unsloth)
 - [LoRA Makalesi](https://arxiv.org/abs/2106.09685)
 - [QLoRA Makalesi](https://arxiv.org/abs/2305.14314)
